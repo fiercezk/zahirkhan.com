@@ -12,6 +12,7 @@
     --muted: #6b6b66;
     --accent: #0e7490;
     --line: #e4e4de;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -23,24 +24,26 @@
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 112.5%; }
   body {
     background: var(--bg);
     color: var(--ink);
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    line-height: 1.65;
+    line-height: 1.7;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
   }
   main {
-    max-width: 40rem;
+    max-width: 43rem;
     margin: 0 auto;
     padding: 12vh 1.5rem 4rem;
     flex: 1;
   }
   .kicker {
-    font-size: .85rem;
-    letter-spacing: .18em;
+    font-family: var(--mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 1.25rem;
@@ -54,8 +57,9 @@
   h1 em { font-style: normal; color: var(--accent); }
   .lede { font-size: 1.1rem; color: var(--muted); margin-bottom: 3rem; }
   h2 {
-    font-size: .85rem;
-    letter-spacing: .18em;
+    font-family: var(--mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--muted);
     border-top: 1px solid var(--line);
@@ -66,13 +70,23 @@
   a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
   a:hover { border-bottom-color: var(--accent); }
   .soon {
+    font-family: var(--mono);
+    font-size: .82rem;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
+  ul.artifacts { list-style: none; margin: .25rem 0 1rem; }
+  ul.artifacts li { padding: .4rem 0; }
+  ul.artifacts .blurb {
+    display: block;
+    color: var(--muted);
+    font-size: .96rem;
+  }
   footer {
     text-align: center;
+    font-family: var(--mono);
     color: var(--muted);
-    font-size: .85rem;
+    font-size: .82rem;
     padding: 2rem 1rem;
     border-top: 1px solid var(--line);
   }
@@ -89,8 +103,13 @@
   <p>Outside work I run systems I can trust while I sleep. A self-hosted home server, and a personal AI setup I've adapted to run my daily life. Everything gets the same treatment. It has to prove it works, not just claim it.</p>
 
   <h2>Artifacts</h2>
-  <p><a href="artifacts/agent-verification-checklist.html"><strong>The Agent Verification Checklist</strong></a>, on how I make automated systems show their work. <span class="soon">Published August 2026.</span></p>
-  <p>More to come. One a month, small and real.</p>
+  <ul class="artifacts">
+    <li>
+      <a href="artifacts/agent-verification-checklist.html"><strong>The Agent Verification Checklist</strong></a> <span class="soon">· August 2026</span>
+      <span class="blurb">Ten checks I run before I believe an agent's claim of "done".</span>
+    </li>
+  </ul>
+  <p>One at a time, small and real.</p>
 
   <h2>Find me</h2>
   <p><a href="https://github.com/fiercezk" rel="me">fiercezk on GitHub</a></p>
