@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Agent Verification Checklist — Zahir Khan</title>
+<meta name="description" content="Ten questions I run against any AI agent's claim of 'done' before I believe it. A checklist, not an essay — check items off as you go.">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --ink: #1a1a1a;
+    --muted: #6b6b66;
+    --accent: #0e7490;
+    --line: #e4e4de;
+    --check-bg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101211;
+      --ink: #eceae4;
+      --muted: #9a9a92;
+      --accent: #4dd0e1;
+      --line: #262927;
+      --check-bg: #181b19;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 10vh 1.5rem 4rem;
+    flex: 1;
+  }
+  .kicker {
+    font-size: .85rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-size: clamp(1.7rem, 5vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .lede { font-size: 1.1rem; color: var(--muted); margin-bottom: 1.5rem; }
+  p + p { margin-top: .75rem; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--accent); }
+  h2 {
+    font-size: .85rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    margin: 2.5rem 0 1rem;
+  }
+  ol.checklist {
+    list-style: none;
+    counter-reset: item;
+    margin: 1.5rem 0;
+  }
+  ol.checklist li {
+    counter-increment: item;
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  ol.checklist li:last-child { border-bottom: none; }
+  ol.checklist input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    margin-top: .2rem;
+    border: 1.5px solid var(--muted);
+    border-radius: .3rem;
+    background: var(--check-bg);
+    cursor: pointer;
+    position: relative;
+  }
+  ol.checklist input[type="checkbox"]:checked {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  ol.checklist input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(40deg);
+  }
+  ol.checklist label { cursor: pointer; }
+  ol.checklist .item-title {
+    font-weight: 600;
+    display: block;
+  }
+  ol.checklist .item-title::before {
+    content: counter(item) ". ";
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  ol.checklist .item-desc {
+    color: var(--muted);
+    font-size: .96rem;
+    display: block;
+    margin-top: .15rem;
+  }
+  li.checked .item-title,
+  li.checked .item-desc {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: currentColor;
+  }
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: .85rem;
+    margin-top: .5rem;
+  }
+  .reset-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font: inherit;
+    font-size: .85rem;
+    cursor: pointer;
+    padding: 0;
+    border-bottom: 1px solid transparent;
+  }
+  .reset-btn:hover { border-bottom-color: var(--accent); }
+  .note {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .85rem;
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker"><a href="../index.html">← Zahir Khan</a> · Artifact · August 2026</p>
+  <h1>The Agent Verification Checklist</h1>
+  <p class="lede">Ten questions I run against any AI agent's claim of "done" before I believe it. Check them off below — your progress stays in this browser, nowhere else.</p>
+
+  <p>Every one of these traces back to the same failure: an agent (or a person, or a vendor) says a thing is finished, and the only evidence is the sentence itself. That's not verification, it's a claim wearing verification's clothes. The test I apply to every item on this list — including the list itself — is simple: can I name the exact thing that would prove it false? If I can't, it doesn't belong here.</p>
+
+  <ol class="checklist" id="checklist" role="list">
+    <li data-id="reproduce">
+      <input type="checkbox" id="c1"><label for="c1"><span class="item-title">Reproduced before touched</span><span class="item-desc">I saw the failure myself — a screenshot, a log line, a raw response — before any fix touched code. "The agent said it was broken" is not a reproduction.</span></label>
+    </li>
+    <li data-id="liveprobe">
+      <input type="checkbox" id="c2"><label for="c2"><span class="item-title">Live-probed, not narrated</span><span class="item-desc">Every user-facing claim — a page loads, an API returns X, a deploy went out — has a real tool call attached to it: a request, a screenshot, a query. Not a sentence describing what should have happened.</span></label>
+    </li>
+    <li data-id="oneclaim">
+      <input type="checkbox" id="c3"><label for="c3"><span class="item-title">One claim, one check</span><span class="item-desc">Each item on the "done" list resolves with a single yes-or-no test. If I can't say which check would answer it, the claim isn't specific enough to trust yet — it gets split until it is.</span></label>
+    </li>
+    <li data-id="secondpass">
+      <input type="checkbox" id="c4"><label for="c4"><span class="item-title">A second opinion before committing</span><span class="item-desc">Something reviewed the plan before it got built, not just the result after. Catching a bad approach early is cheaper than catching a bad result late.</span></label>
+    </li>
+    <li data-id="crosscheck">
+      <input type="checkbox" id="c5"><label for="c5"><span class="item-title">A genuinely different check, not the same one twice</span><span class="item-desc">Where it actually matters, the review came from a different angle or a different reviewer — not the same process asking itself the same question and agreeing with itself.</span></label>
+    </li>
+    <li data-id="smallsteps">
+      <input type="checkbox" id="c6"><label for="c6"><span class="item-title">Verified in small steps, not one big leap</span><span class="item-desc">The work is checked as it goes, so "done" is a chain of small provable steps — not a single unverifiable claim dropped at the end after everything was already built.</span></label>
+    </li>
+    <li data-id="mustnot">
+      <input type="checkbox" id="c7"><label for="c7"><span class="item-title">Told what must NOT happen</span><span class="item-desc">There's at least one item on the list that's a failure if it becomes true — a door that should stay locked, a regression that shouldn't come back. A checklist of only positives misses this class of bug entirely.</span></label>
+    </li>
+    <li data-id="reread">
+      <input type="checkbox" id="c8"><label for="c8"><span class="item-title">Re-read against the original ask</span><span class="item-desc">After everything checks out technically, I go back to what was actually asked for and confirm nothing on that original list got quietly dropped along the way.</span></label>
+    </li>
+    <li data-id="banned">
+      <input type="checkbox" id="c9"><label for="c9"><span class="item-title">No banned words in the final report</span><span class="item-desc">"Should work," "looks fine," "no errors," "done" — without a receipt attached to each of those, they're not answers, they're hopes. If the write-up leans on this language instead of evidence, that's a red flag, not a green light.</span></label>
+    </li>
+    <li data-id="deferred">
+      <input type="checkbox" id="c10"><label for="c10"><span class="item-title">Marked deferred, not marked done</span><span class="item-desc">Anything I genuinely can't verify right now says so out loud, with a plan to check it later. It does not get folded quietly into "complete" because checking it was inconvenient.</span></label>
+    </li>
+  </ol>
+
+  <div class="progress-row">
+    <span id="progress-label" aria-live="polite">0 of 10 checked</span>
+    <button class="reset-btn" id="reset-btn" type="button">Reset checklist</button>
+  </div>
+  <p class="note">State is saved to this browser only (localStorage) — nothing is sent anywhere, and reloading the page won't lose your progress.</p>
+
+  <h2>Where this comes from</h2>
+  <p>I run a home server and a set of automated workflows for my own projects — trading tools, side builds, small sites like this one. The failure mode I keep guarding against isn't the agent doing the wrong thing. It's the agent (or the report, or the PR, or the contractor) confidently telling me it did the right thing, with nothing behind the sentence. This list is what I actually check before I believe "done." It's short on purpose — a checklist you won't run isn't a checklist, it's a wish.</p>
+
+  <p><a href="../index.html">← Back to zahirkhan.com</a></p>
+</main>
+<footer>© 2026 Zahir Khan · Tokyo</footer>
+<script>
+(function () {
+  var KEY = "avc-checklist-v1";
+  var items = document.querySelectorAll("#checklist li");
+  var label = document.getElementById("progress-label");
+  var resetBtn = document.getElementById("reset-btn");
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      var parsed = raw ? JSON.parse(raw) : null;
+      return (parsed && typeof parsed === "object") ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) { /* storage unavailable — checklist still works, just won't persist */ }
+  }
+
+  function updateProgress() {
+    var checked = document.querySelectorAll("#checklist input[type=checkbox]:checked").length;
+    label.textContent = checked + " of " + items.length + " checked";
+  }
+
+  function applyState(state) {
+    items.forEach(function (li) {
+      var id = li.getAttribute("data-id");
+      var box = li.querySelector("input[type=checkbox]");
+      var isChecked = !!state[id];
+      box.checked = isChecked;
+      li.classList.toggle("checked", isChecked);
+    });
+    updateProgress();
+  }
+
+  var state = loadState();
+  applyState(state);
+
+  items.forEach(function (li) {
+    var id = li.getAttribute("data-id");
+    var box = li.querySelector("input[type=checkbox]");
+    box.addEventListener("change", function () {
+      state[id] = box.checked;
+      li.classList.toggle("checked", box.checked);
+      saveState(state);
+      updateProgress();
+    });
+  });
+
+  resetBtn.addEventListener("click", function () {
+    state = {};
+    saveState(state);
+    applyState(state);
+  });
+})();
+</script>
+</body>
+</html>
