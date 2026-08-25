@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Agent Verification Checklist — Zahir Khan</title>
-<meta name="description" content="Ten questions I run against any AI agent's claim of 'done' before I believe it. A checklist, not an essay — check items off as you go.">
+<title>The Agent Verification Checklist · Zahir Khan</title>
+<meta name="description" content="Ten questions I run against any AI agent's claim of 'done' before I believe it. A checklist, not an essay. Check items off as you go.">
 <style>
   :root {
     --bg: #fafaf8;
@@ -167,40 +167,40 @@
 <main>
   <p class="kicker"><a href="../index.html">← Zahir Khan</a> · Artifact · August 2026</p>
   <h1>The Agent Verification Checklist</h1>
-  <p class="lede">Ten questions I run against any AI agent's claim of "done" before I believe it. Check them off below — your progress stays in this browser, nowhere else.</p>
+  <p class="lede">Ten questions I run against any AI agent's claim of "done" before I believe it. Check them off as you go. Your progress stays in this browser and nowhere else.</p>
 
-  <p>Every one of these traces back to the same failure: an agent (or a person, or a vendor) says a thing is finished, and the only evidence is the sentence itself. That's not verification, it's a claim wearing verification's clothes. The test I apply to every item on this list — including the list itself — is simple: can I name the exact thing that would prove it false? If I can't, it doesn't belong here.</p>
+  <p>Every one of these comes back to the same failure. An agent, or a person, or a vendor says a thing is finished, and the only evidence is the sentence itself. That isn't verification. It's a claim wearing verification's clothes. So the test I apply to every item on this list, including the list itself, is simple. Can I name the exact thing that would prove it false? If I can't, it doesn't belong here.</p>
 
   <ol class="checklist" id="checklist" role="list">
     <li data-id="reproduce">
-      <input type="checkbox" id="c1"><label for="c1"><span class="item-title">Reproduced before touched</span><span class="item-desc">I saw the failure myself — a screenshot, a log line, a raw response — before any fix touched code. "The agent said it was broken" is not a reproduction.</span></label>
+      <input type="checkbox" id="c1"><label for="c1"><span class="item-title">Reproduced before touched</span><span class="item-desc">I saw the failure myself, in a screenshot or a log line or a raw response, before any fix touched code. "The agent said it was broken" is not a reproduction.</span></label>
     </li>
     <li data-id="liveprobe">
-      <input type="checkbox" id="c2"><label for="c2"><span class="item-title">Live-probed, not narrated</span><span class="item-desc">Every user-facing claim — a page loads, an API returns X, a deploy went out — has a real tool call attached to it: a request, a screenshot, a query. Not a sentence describing what should have happened.</span></label>
+      <input type="checkbox" id="c2"><label for="c2"><span class="item-title">Live-probed, not narrated</span><span class="item-desc">Every claim about something a user can see has a real tool call behind it. A page loads, an API returns something, a deploy went out. I want the request, the screenshot or the query, not a sentence describing what should have happened.</span></label>
     </li>
     <li data-id="oneclaim">
-      <input type="checkbox" id="c3"><label for="c3"><span class="item-title">One claim, one check</span><span class="item-desc">Each item on the "done" list resolves with a single yes-or-no test. If I can't say which check would answer it, the claim isn't specific enough to trust yet — it gets split until it is.</span></label>
+      <input type="checkbox" id="c3"><label for="c3"><span class="item-title">One claim, one check</span><span class="item-desc">Each item on the "done" list resolves with a single yes or no test. If I can't say which check would answer it, the claim isn't specific enough to trust yet, so it gets split until it is.</span></label>
     </li>
     <li data-id="secondpass">
-      <input type="checkbox" id="c4"><label for="c4"><span class="item-title">A second opinion before committing</span><span class="item-desc">Something reviewed the plan before it got built, not just the result after. Catching a bad approach early is cheaper than catching a bad result late.</span></label>
+      <input type="checkbox" id="c4"><label for="c4"><span class="item-title">A second opinion before committing</span><span class="item-desc">Something reviewed the plan before it got built, not just the result afterwards. Catching a bad approach early is cheaper than catching a bad result late.</span></label>
     </li>
     <li data-id="crosscheck">
-      <input type="checkbox" id="c5"><label for="c5"><span class="item-title">A genuinely different check, not the same one twice</span><span class="item-desc">Where it actually matters, the review came from a different angle or a different reviewer — not the same process asking itself the same question and agreeing with itself.</span></label>
+      <input type="checkbox" id="c5"><label for="c5"><span class="item-title">A genuinely different check, not the same one twice</span><span class="item-desc">Where it actually matters, the review came from a different angle or a different reviewer. The same process asking itself the same question and agreeing with itself proves nothing.</span></label>
     </li>
     <li data-id="smallsteps">
-      <input type="checkbox" id="c6"><label for="c6"><span class="item-title">Verified in small steps, not one big leap</span><span class="item-desc">The work is checked as it goes, so "done" is a chain of small provable steps — not a single unverifiable claim dropped at the end after everything was already built.</span></label>
+      <input type="checkbox" id="c6"><label for="c6"><span class="item-title">Verified in small steps, not one big leap</span><span class="item-desc">The work gets checked as it goes, so "done" is a chain of small provable steps. Not one unverifiable claim dropped at the end after everything was already built.</span></label>
     </li>
     <li data-id="mustnot">
-      <input type="checkbox" id="c7"><label for="c7"><span class="item-title">Told what must NOT happen</span><span class="item-desc">There's at least one item on the list that's a failure if it becomes true — a door that should stay locked, a regression that shouldn't come back. A checklist of only positives misses this class of bug entirely.</span></label>
+      <input type="checkbox" id="c7"><label for="c7"><span class="item-title">Told what must NOT happen</span><span class="item-desc">At least one item on the list is a failure if it becomes true. A door that should stay locked, a regression that shouldn't come back. A checklist of only positives misses this whole class of bug.</span></label>
     </li>
     <li data-id="reread">
       <input type="checkbox" id="c8"><label for="c8"><span class="item-title">Re-read against the original ask</span><span class="item-desc">After everything checks out technically, I go back to what was actually asked for and confirm nothing on that original list got quietly dropped along the way.</span></label>
     </li>
     <li data-id="banned">
-      <input type="checkbox" id="c9"><label for="c9"><span class="item-title">No banned words in the final report</span><span class="item-desc">"Should work," "looks fine," "no errors," "done" — without a receipt attached to each of those, they're not answers, they're hopes. If the write-up leans on this language instead of evidence, that's a red flag, not a green light.</span></label>
+      <input type="checkbox" id="c9"><label for="c9"><span class="item-title">No banned words in the final report</span><span class="item-desc">"Should work." "Looks fine." "No errors." Without a receipt attached, those aren't answers, they're hopes. A write-up leaning on that language instead of evidence is a red flag, not a green light.</span></label>
     </li>
     <li data-id="deferred">
-      <input type="checkbox" id="c10"><label for="c10"><span class="item-title">Marked deferred, not marked done</span><span class="item-desc">Anything I genuinely can't verify right now says so out loud, with a plan to check it later. It does not get folded quietly into "complete" because checking it was inconvenient.</span></label>
+      <input type="checkbox" id="c10"><label for="c10"><span class="item-title">Marked deferred, not marked done</span><span class="item-desc">Anything I genuinely can't verify right now says so out loud, with a plan to check it later. It doesn't get folded quietly into "complete" because checking it was inconvenient.</span></label>
     </li>
   </ol>
 
@@ -208,10 +208,10 @@
     <span id="progress-label" aria-live="polite">0 of 10 checked</span>
     <button class="reset-btn" id="reset-btn" type="button">Reset checklist</button>
   </div>
-  <p class="note">State is saved to this browser only (localStorage) — nothing is sent anywhere, and reloading the page won't lose your progress.</p>
+  <p class="note">Your progress is saved to this browser only, using localStorage. Nothing is sent anywhere, and reloading the page won't lose it.</p>
 
   <h2>Where this comes from</h2>
-  <p>I run a home server and a set of automated workflows for my own projects — trading tools, side builds, small sites like this one. The failure mode I keep guarding against isn't the agent doing the wrong thing. It's the agent (or the report, or the PR, or the contractor) confidently telling me it did the right thing, with nothing behind the sentence. This list is what I actually check before I believe "done." It's short on purpose — a checklist you won't run isn't a checklist, it's a wish.</p>
+  <p>I run a home server and a set of automated workflows for my own projects. Trading tools, side builds, small sites like this one. The failure mode I keep guarding against isn't the agent doing the wrong thing. It's the agent, or the report, or the pull request, or the contractor, confidently telling me it did the right thing with nothing behind the sentence. This list is what I actually check before I believe "done." It's short on purpose, because a checklist you won't run isn't a checklist. It's a wish.</p>
 
   <p><a href="../index.html">← Back to zahirkhan.com</a></p>
 </main>
@@ -236,7 +236,7 @@
   function saveState(state) {
     try {
       localStorage.setItem(KEY, JSON.stringify(state));
-    } catch (e) { /* storage unavailable — checklist still works, just won't persist */ }
+    } catch (e) { /* storage unavailable, checklist still works but won't persist */ }
   }
 
   function updateProgress() {
