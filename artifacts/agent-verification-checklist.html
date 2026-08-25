@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Agent Verification Checklist · Zahir Khan</title>
-<meta name="description" content="Ten questions I run against any AI agent's claim of 'done' before I believe it. A checklist, not an essay. Check items off as you go.">
+<meta name="description" content="Ten checks I run against any AI agent's claim of 'done' before I believe it. Tick an item only when you can name the receipt.">
 <style>
   :root {
     --bg: #fafaf8;
@@ -69,17 +69,18 @@
   ol.checklist {
     list-style: none;
     counter-reset: item;
-    margin: 1.5rem 0;
+    margin: 1rem 0 1.5rem;
   }
   ol.checklist li {
     counter-increment: item;
     display: flex;
     align-items: flex-start;
     gap: .85rem;
-    padding: .9rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--line);
   }
   ol.checklist li:last-child { border-bottom: none; }
+  .item-body { flex: 1; min-width: 0; }
   ol.checklist input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -124,16 +125,40 @@
     display: block;
     margin-top: .15rem;
   }
-  li.checked .item-title,
-  li.checked .item-desc {
+  li.verified .item-title,
+  li.verified .item-desc {
     color: var(--muted);
     text-decoration: line-through;
     text-decoration-color: currentColor;
   }
+  .evidence {
+    width: 100%;
+    margin-top: .55rem;
+    padding: .4rem .55rem;
+    font: inherit;
+    font-size: .9rem;
+    color: var(--ink);
+    background: var(--check-bg);
+    border: 1px solid var(--line);
+    border-radius: .3rem;
+  }
+  .evidence::placeholder { color: var(--muted); opacity: .8; }
+  .evidence:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  li.needs-receipt .evidence { border-color: var(--accent); }
+  input[type="checkbox"]:focus-visible,
+  .reset-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   .progress-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
+    gap: 1rem;
     color: var(--muted);
     font-size: .85rem;
     margin-top: .5rem;
@@ -147,12 +172,20 @@
     cursor: pointer;
     padding: 0;
     border-bottom: 1px solid transparent;
+    white-space: nowrap;
   }
   .reset-btn:hover { border-bottom-color: var(--accent); }
   .note {
     font-size: .85rem;
     color: var(--muted);
     margin-top: 1rem;
+  }
+  .instruction {
+    font-size: .95rem;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: .85rem;
+    margin-top: 1.5rem;
   }
   footer {
     text-align: center;
@@ -167,59 +200,108 @@
 <main>
   <p class="kicker"><a href="../index.html">← Zahir Khan</a> · Artifact · August 2026</p>
   <h1>The Agent Verification Checklist</h1>
-  <p class="lede">Ten questions I run against any AI agent's claim of "done" before I believe it. Check them off as you go. Your progress stays in this browser and nowhere else.</p>
+  <p class="lede">Ten checks I run against any AI agent's claim of "done" before I believe it. Point it at a pull request, a status report, or an agent transcript. I write this from a software delivery seat, and most of it carries over to any report you are asked to believe.</p>
 
-  <p>Every one of these comes back to the same failure. An agent, or a person, or a vendor says a thing is finished, and the only evidence is the sentence itself. That isn't verification. It's a claim wearing verification's clothes. So the test I apply to every item on this list, including the list itself, is simple. Can I name the exact thing that would prove it false? If I can't, it doesn't belong here.</p>
+  <p>Every one of these comes back to the same failure. An agent, or a person, or a vendor says a thing is finished, and the only evidence is the sentence itself. That is a claim wearing verification's clothes. So the test I apply to every item here, including the list itself, is whether I can name the exact thing that would prove it false. If I can't, it doesn't belong.</p>
+
+  <p>Two things this list refuses to pretend. Evidence costs time, and a standard nobody can afford gets quietly dropped, so I run this against the claims I would have to explain if they turned out to be wrong. And a receipt can lie. Attaching evidence is the start of the argument rather than the end of it, which is why half these items are about the quality of the receipt instead of its existence.</p>
+
+  <p>There is one reason agents need this more than people do. When a person overstates what they finished, you can hold them to it afterwards, and that accountability does some of the work for you. An agent gives you nobody to hold. The verification has to carry the whole load on its own.</p>
+
+  <p class="instruction">Tick an item only when you can name the receipt, and write it in the box. An item with a tick and no receipt doesn't count, which is the whole argument of this page applied to the page itself.</p>
 
   <ol class="checklist" id="checklist" role="list">
     <li data-id="reproduce">
-      <input type="checkbox" id="c1"><label for="c1"><span class="item-title">Reproduced before touched</span><span class="item-desc">I saw the failure myself, in a screenshot or a log line or a raw response, before any fix touched code. "The agent said it was broken" is not a reproduction.</span></label>
+      <input type="checkbox" id="c1">
+      <div class="item-body">
+        <label for="c1"><span class="item-title">Reproduced before touched</span><span class="item-desc">If this is a fix, I saw the failure myself, in a log line or a raw response or a screenshot, before any code changed. An agent reporting that something was broken is not a reproduction of it.</span></label>
+        <input type="text" class="evidence" id="e1" aria-label="Receipt for: Reproduced before touched" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="liveprobe">
-      <input type="checkbox" id="c2"><label for="c2"><span class="item-title">Live-probed, not narrated</span><span class="item-desc">Every claim about something a user can see has a real tool call behind it. A page loads, an API returns something, a deploy went out. I want the request, the screenshot or the query, not a sentence describing what should have happened.</span></label>
+      <input type="checkbox" id="c2">
+      <div class="item-body">
+        <label for="c2"><span class="item-title">Live-probed, not narrated</span><span class="item-desc">Every claim about something a user can see has a real tool call behind it, and the call has to show correctness rather than existence. A page that loads can still be showing the wrong number. An API that answers can still be answering with garbage. I want the response with the value visible in it, or the query result, not a sentence describing what should have happened.</span></label>
+        <input type="text" class="evidence" id="e2" aria-label="Receipt for: Live-probed, not narrated" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="oneclaim">
-      <input type="checkbox" id="c3"><label for="c3"><span class="item-title">One claim, one check</span><span class="item-desc">Each item on the "done" list resolves with a single yes or no test. If I can't say which check would answer it, the claim isn't specific enough to trust yet, so it gets split until it is.</span></label>
+      <input type="checkbox" id="c3">
+      <div class="item-body">
+        <label for="c3"><span class="item-title">One claim, one check</span><span class="item-desc">Each item on the done list resolves with a single yes or no test, and it gets checked as the work lands rather than all at once at the end. If I can't say which exact test answers an item, it isn't specific enough to trust yet, so it gets split until it is.</span></label>
+        <input type="text" class="evidence" id="e3" aria-label="Receipt for: One claim, one check" placeholder="where's the receipt?">
+      </div>
     </li>
-    <li data-id="secondpass">
-      <input type="checkbox" id="c4"><label for="c4"><span class="item-title">A second opinion before committing</span><span class="item-desc">Something reviewed the plan before it got built, not just the result afterwards. Catching a bad approach early is cheaper than catching a bad result late.</span></label>
+    <li data-id="writtenplan">
+      <input type="checkbox" id="c4">
+      <div class="item-body">
+        <label for="c4"><span class="item-title">The plan existed in writing first</span><span class="item-desc">There is a plan I can still open, dated before the first change, and somebody or something other than the builder left a mark on it. If no such record exists, this item fails. Catching a bad approach early is cheaper than catching a bad result late.</span></label>
+        <input type="text" class="evidence" id="e4" aria-label="Receipt for: The plan existed in writing first" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="crosscheck">
-      <input type="checkbox" id="c5"><label for="c5"><span class="item-title">A genuinely different check, not the same one twice</span><span class="item-desc">Where it actually matters, the review came from a different angle or a different reviewer. The same process asking itself the same question and agreeing with itself proves nothing.</span></label>
+      <input type="checkbox" id="c5">
+      <div class="item-body">
+        <label for="c5"><span class="item-title">A genuinely different check, not the same one twice</span><span class="item-desc">On anything I would have to explain if it broke, the second look came from a different angle or a different reviewer. The same process asking itself the same question and agreeing with itself proves nothing.</span></label>
+        <input type="text" class="evidence" id="e5" aria-label="Receipt for: A genuinely different check, not the same one twice" placeholder="where's the receipt?">
+      </div>
     </li>
-    <li data-id="smallsteps">
-      <input type="checkbox" id="c6"><label for="c6"><span class="item-title">Verified in small steps, not one big leap</span><span class="item-desc">The work gets checked as it goes, so "done" is a chain of small provable steps. Not one unverifiable claim dropped at the end after everything was already built.</span></label>
+    <li data-id="realenv">
+      <input type="checkbox" id="c6">
+      <div class="item-body">
+        <label for="c6"><span class="item-title">Checked where it actually runs</span><span class="item-desc">The evidence came from the real environment, at the version that is live now, after the change landed. A green run on an old build, a cached page, or the right answer from the wrong branch is evidence about something else entirely.</span></label>
+        <input type="text" class="evidence" id="e6" aria-label="Receipt for: Checked where it actually runs" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="mustnot">
-      <input type="checkbox" id="c7"><label for="c7"><span class="item-title">Told what must NOT happen</span><span class="item-desc">At least one item on the list is a failure if it becomes true. A door that should stay locked, a regression that shouldn't come back. A checklist of only positives misses this whole class of bug.</span></label>
+      <input type="checkbox" id="c7">
+      <div class="item-body">
+        <label for="c7"><span class="item-title">Told what must NOT happen</span><span class="item-desc">At least one item on the list is a failure if it becomes true. A door that should stay locked, a regression that shouldn't come back. A checklist of only positives misses this whole class of bug.</span></label>
+        <input type="text" class="evidence" id="e7" aria-label="Receipt for: Told what must NOT happen" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="reread">
-      <input type="checkbox" id="c8"><label for="c8"><span class="item-title">Re-read against the original ask</span><span class="item-desc">After everything checks out technically, I go back to what was actually asked for and confirm nothing on that original list got quietly dropped along the way.</span></label>
+      <input type="checkbox" id="c8">
+      <div class="item-body">
+        <label for="c8"><span class="item-title">Re-read against the original ask</span><span class="item-desc">After everything checks out technically, I go back to what was asked for at the start and confirm nothing on that original list got quietly dropped along the way.</span></label>
+        <input type="text" class="evidence" id="e8" aria-label="Receipt for: Re-read against the original ask" placeholder="where's the receipt?">
+      </div>
     </li>
-    <li data-id="banned">
-      <input type="checkbox" id="c9"><label for="c9"><span class="item-title">No banned words in the final report</span><span class="item-desc">"Should work." "Looks fine." "No errors." Without a receipt attached, those aren't answers, they're hopes. A write-up leaning on that language instead of evidence is a red flag, not a green light.</span></label>
+    <li data-id="receipt">
+      <input type="checkbox" id="c9">
+      <div class="item-body">
+        <label for="c9"><span class="item-title">Every "looks fine" has a receipt behind it</span><span class="item-desc">"Should work." "Looks fine." "No errors." Those are good summaries of something I can open for myself. They are a red flag as the whole answer. When the phrase is doing the work the evidence should be doing, I go and look.</span></label>
+        <input type="text" class="evidence" id="e9" aria-label="Receipt for: Every looks fine has a receipt behind it" placeholder="where's the receipt?">
+      </div>
     </li>
     <li data-id="deferred">
-      <input type="checkbox" id="c10"><label for="c10"><span class="item-title">Marked deferred, not marked done</span><span class="item-desc">Anything I genuinely can't verify right now says so out loud, with a plan to check it later. It doesn't get folded quietly into "complete" because checking it was inconvenient.</span></label>
+      <input type="checkbox" id="c10">
+      <div class="item-body">
+        <label for="c10"><span class="item-title">Deferred items say so out loud</span><span class="item-desc">Anything I genuinely can't verify right now gets marked unverified, with a plan for when it gets checked. It stays out of "complete" even when checking it was inconvenient.</span></label>
+        <input type="text" class="evidence" id="e10" aria-label="Receipt for: Deferred items say so out loud" placeholder="where's the receipt?">
+      </div>
     </li>
   </ol>
 
   <div class="progress-row">
-    <span id="progress-label" aria-live="polite">0 of 10 checked</span>
-    <button class="reset-btn" id="reset-btn" type="button">Reset checklist</button>
+    <span id="progress-label" aria-live="polite">0 of 10 verified</span>
+    <button class="reset-btn" id="reset-btn" type="button">Clear everything</button>
   </div>
-  <p class="note">Your progress is saved to this browser only, using localStorage. Nothing is sent anywhere, and reloading the page won't lose it.</p>
+  <p class="note">Everything you tick or type is saved to this browser only, using localStorage. Nothing is sent anywhere, and reloading the page won't lose it.</p>
 
   <h2>Where this comes from</h2>
-  <p>I run a home server and a set of automated workflows for my own projects. Trading tools, side builds, small sites like this one. The failure mode I keep guarding against isn't the agent doing the wrong thing. It's the agent, or the report, or the pull request, or the contractor, confidently telling me it did the right thing with nothing behind the sentence. This list is what I actually check before I believe "done." It's short on purpose, because a checklist you won't run isn't a checklist. It's a wish.</p>
+  <p>I run a home server and a set of automated workflows for my own projects. Market screeners for my own use, side builds, small sites like this one. The failure mode I keep guarding against isn't the agent doing the wrong thing. It's the agent, or the report, or the pull request, confidently telling me it did the right thing with nothing behind the sentence. The stakes are lower on my own projects than they are in my day job, and the failure is identical. On my own projects I am allowed to talk about it.</p>
+
+  <h2>About this page</h2>
+  <p>An AI agent drafted this page, working from my practice and my edits, and I ran the list above against it before publishing. Item 2 held up, because the checkbox behaviour here was driven in a real browser with the console watched, rather than described to me in a summary. Item 5 failed on the first attempt. The review I asked for came back from the same model family as the agent that wrote the page, which is the same process agreeing with itself, and it took a second opinion from a different vendor to notice that two items on this list were saying nearly the same thing. Item 7 caught me as well. I had written down what must not appear on this page, then wrote one of those things anyway, and a reviewer found it before I did.</p>
 
   <p><a href="../index.html">← Back to zahirkhan.com</a></p>
 </main>
 <footer>© 2026 Zahir Khan · Tokyo</footer>
 <script>
 (function () {
-  var KEY = "avc-checklist-v1";
-  var items = document.querySelectorAll("#checklist li");
+  var KEY = "avc-checklist-v2";
+  var items = Array.prototype.slice.call(document.querySelectorAll("#checklist li"));
   var label = document.getElementById("progress-label");
   var resetBtn = document.getElementById("reset-btn");
 
@@ -227,7 +309,8 @@
     try {
       var raw = localStorage.getItem(KEY);
       var parsed = raw ? JSON.parse(raw) : null;
-      return (parsed && typeof parsed === "object") ? parsed : {};
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+      return parsed;
     } catch (e) {
       return {};
     }
@@ -236,23 +319,41 @@
   function saveState(state) {
     try {
       localStorage.setItem(KEY, JSON.stringify(state));
-    } catch (e) { /* storage unavailable, checklist still works but won't persist */ }
+    } catch (e) { /* storage unavailable, page still works but won't persist */ }
   }
 
-  function updateProgress() {
-    var checked = document.querySelectorAll("#checklist input[type=checkbox]:checked").length;
-    label.textContent = checked + " of " + items.length + " checked";
+  function entryFor(state, id) {
+    var e = state[id];
+    if (!e || typeof e !== "object" || Array.isArray(e)) return { c: false, n: "" };
+    return { c: !!e.c, n: typeof e.n === "string" ? e.n : "" };
+  }
+
+  function refresh(state) {
+    var verified = 0;
+    var unevidenced = 0;
+    items.forEach(function (li) {
+      var entry = entryFor(state, li.getAttribute("data-id"));
+      var hasReceipt = entry.n.trim().length > 0;
+      var isVerified = entry.c && hasReceipt;
+      if (isVerified) verified++;
+      if (entry.c && !hasReceipt) unevidenced++;
+      li.classList.toggle("verified", isVerified);
+      li.classList.toggle("needs-receipt", entry.c && !hasReceipt);
+    });
+    var text = verified + " of " + items.length + " verified";
+    if (unevidenced > 0) {
+      text += ", " + unevidenced + (unevidenced === 1 ? " ticked with no receipt" : " ticked with no receipts");
+    }
+    label.textContent = text;
   }
 
   function applyState(state) {
     items.forEach(function (li) {
-      var id = li.getAttribute("data-id");
-      var box = li.querySelector("input[type=checkbox]");
-      var isChecked = !!state[id];
-      box.checked = isChecked;
-      li.classList.toggle("checked", isChecked);
+      var entry = entryFor(state, li.getAttribute("data-id"));
+      li.querySelector("input[type=checkbox]").checked = entry.c;
+      li.querySelector(".evidence").value = entry.n;
     });
-    updateProgress();
+    refresh(state);
   }
 
   var state = loadState();
@@ -261,12 +362,16 @@
   items.forEach(function (li) {
     var id = li.getAttribute("data-id");
     var box = li.querySelector("input[type=checkbox]");
-    box.addEventListener("change", function () {
-      state[id] = box.checked;
-      li.classList.toggle("checked", box.checked);
+    var field = li.querySelector(".evidence");
+
+    function commit() {
+      state[id] = { c: box.checked, n: field.value };
       saveState(state);
-      updateProgress();
-    });
+      refresh(state);
+    }
+
+    box.addEventListener("change", commit);
+    field.addEventListener("input", commit);
   });
 
   resetBtn.addEventListener("click", function () {
