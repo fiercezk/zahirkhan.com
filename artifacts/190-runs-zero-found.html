@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>190 Runs, Zero Found · Zahir Khan</title>
+<meta name="description" content="A job on my home server said it had nothing to do, 190 times in a row. It was wrong every time. Why a calm zero needs proof too.">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --ink: #1a1a1a;
+    --muted: #6b6b66;
+    --accent: #0e7490;
+    --line: #e4e4de;
+    --check-bg: #ffffff;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101211;
+      --ink: #eceae4;
+      --muted: #9a9a92;
+      --accent: #4dd0e1;
+      --line: #262927;
+      --check-bg: #181b19;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 112.5%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  main {
+    max-width: 43rem;
+    margin: 0 auto;
+    padding: 10vh 1.5rem 4rem;
+    flex: 1;
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-size: clamp(1.7rem, 5vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .lede { font-size: 1.1rem; color: var(--muted); margin-bottom: 1.5rem; }
+  p + p { margin-top: .75rem; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--accent); }
+  h2 {
+    font-family: var(--mono);
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    margin: 2.5rem 0 1rem;
+  }
+  ol.checklist {
+    list-style: none;
+    counter-reset: item;
+    margin: 1rem 0 1.5rem;
+  }
+  ol.checklist li {
+    counter-increment: item;
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  ol.checklist li:last-child { border-bottom: none; }
+  .item-body { flex: 1; min-width: 0; }
+  ol.checklist input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    margin-top: .2rem;
+    border: 1.5px solid var(--muted);
+    border-radius: .3rem;
+    background: var(--check-bg);
+    cursor: pointer;
+    position: relative;
+  }
+  ol.checklist input[type="checkbox"]:checked {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  ol.checklist input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(40deg);
+  }
+  ol.checklist label { cursor: pointer; }
+  ol.checklist .item-title {
+    font-weight: 600;
+    display: block;
+  }
+  ol.checklist .item-title::before {
+    content: counter(item) ". ";
+    font-family: var(--mono);
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  ol.checklist .item-desc {
+    color: var(--muted);
+    font-size: .96rem;
+    display: block;
+    margin-top: .15rem;
+  }
+  li.verified .item-title,
+  li.verified .item-desc {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: currentColor;
+  }
+  .evidence {
+    width: 100%;
+    margin-top: .55rem;
+    padding: .45rem .6rem;
+    font-family: var(--mono);
+    font-size: .85rem;
+    color: var(--ink);
+    background: var(--check-bg);
+    border: 1px solid var(--line);
+    border-radius: .3rem;
+  }
+  .evidence::placeholder { color: var(--muted); opacity: .8; }
+  .evidence:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  li.needs-receipt .evidence { border-color: var(--accent); }
+  input[type="checkbox"]:focus-visible,
+  .reset-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: .82rem;
+    margin-top: .5rem;
+  }
+  .reset-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: .82rem;
+    cursor: pointer;
+    padding: 0;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .reset-btn:hover { border-bottom-color: var(--accent); }
+  .note {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+  .instruction {
+    font-size: .95rem;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: .85rem;
+    margin-top: 1.5rem;
+  }
+  footer {
+    text-align: center;
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: .82rem;
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  pre.log {
+    font-family: var(--mono);
+    font-size: .8rem;
+    line-height: 1.55;
+    background: var(--check-bg);
+    border: 1px solid var(--line);
+    border-radius: .3rem;
+    padding: .9rem 1rem;
+    margin: 1.25rem 0 .4rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  pre.log .hl { color: var(--accent); }
+  .caption { font-size: .85rem; color: var(--muted); margin-bottom: 1.25rem; }
+  .stat-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .stat { flex: 1; min-width: 8rem; border-left: 2px solid var(--accent); padding-left: .85rem; }
+  .stat b { display: block; font-family: var(--mono); font-size: 1.6rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: .85rem; color: var(--muted); }
+  code { font-family: var(--mono); font-size: .88em; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker"><a href="../index.html">&#8592; Zahir Khan</a> &middot; Artifact &middot; October 2026</p>
+  <h1>190 Runs, Zero Found</h1>
+  <p class="lede">For eight days, a small job on my home server gave me the same answer every hour: nothing to do. My AI assistant read that answer and told me the work was finished. It was not. 1,870 photo pairs were still waiting.</p>
+
+  <p>This is a short story about the quietest kind of bug. Nothing crashed. No error appeared. The log was clean. And that clean log was the problem.</p>
+
+  <h2>The setup</h2>
+  <p>My phone saves many photos twice. One copy is a RAW file, which keeps every detail for editing. The other is a normal JPG. I keep all my photos in Immich, a photo app I run on my own home server. Immich shows both copies, so every one of those photos appears twice.</p>
+  <p>Immich can "stack" the two copies, so you see one photo with the RAW file kept underneath it. Doing that by hand for thousands of photos is not realistic. So I had a small job that runs every hour. It finds each RAW and JPG pair and stacks them.</p>
+
+  <h2>The false "done"</h2>
+  <p>The job ran every hour, and every hour it wrote the same three lines:</p>
+
+<pre class="log">Scanned 47066 images; 16008 already in stacks.
+<span class="hl">Found 0 RAW+JPG pairs to stack.</span>
+Stacked 0 pairs, 0 failures.
+
+Scanned 47066 images; 16008 already in stacks.
+<span class="hl">Found 0 RAW+JPG pairs to stack.</span>
+Stacked 0 pairs, 0 failures.
+
+Scanned 47066 images; 16008 already in stacks.
+<span class="hl">Found 0 RAW+JPG pairs to stack.</span>
+Stacked 0 pairs, 0 failures.</pre>
+  <p class="caption">The first lines of the real log. The same block repeats 190 times.</p>
+
+  <p>My assistant read this and reported back: everything is already stacked. It sounded reasonable. No failures. Nothing left to do.</p>
+  <p>But I could open Immich and see the duplicates with my own eyes. Pair after pair, the same photo twice. The report and the screen did not agree. I believed the screen.</p>
+
+  <h2>What was actually wrong</h2>
+  <p>The job matched pairs with a simple rule: the two files must have the same name and the same capture time. Both parts of that rule were wrong for my phone.</p>
+  <p><strong>The names were different.</strong> My phone does not name the two copies the same way. A real pair looks like this:</p>
+<pre class="log">PXL_20260806_091903576.RAW-01.jpg
+PXL_20260806_091903576.RAW-02.ORIGINAL.dng</pre>
+  <p class="caption">One shot, two files, two different names.</p>
+  <p><strong>The times were different.</strong> The phone writes the JPG a few hundred milliseconds after the RAW. So "exactly the same time" also failed.</p>
+  <p>Either bug alone was enough to find nothing. With both, the job could never find a single pair. It was not finished. It was blind.</p>
+  <p>The fix was small. Remove the extra parts the phone adds to the name before comparing, and compare the time to the minute, not to the millisecond. Once it was fixed, it stacked all the waiting pairs in one go.</p>
+
+  <div class="stat-row">
+    <div class="stat"><b>190</b><span>hourly runs that found nothing</span></div>
+    <div class="stat"><b>1,870</b><span>pairs that were waiting the whole time</span></div>
+    <div class="stat"><b>26</b><span>runs since the fix that found new pairs</span></div>
+  </div>
+
+  <h2>The lesson</h2>
+  <p>A zero is a result. It needs proof, just like any other result.</p>
+  <p>When a report says "something went wrong," we check it. When a report says "nothing to do," we relax. But "nothing to do" is also a claim. And a job that cannot see the work will say exactly the same thing as a job that has finished it.</p>
+  <p>So now I ask one question before I accept a zero: <strong>has this job ever found anything?</strong> One zero is normal. A long, flat line of zeros, with no other result ever, is far more likely to be a broken job than a finished one.</p>
+  <p>The second lesson is simpler. When a person's eyes and a tool's report disagree, believe the eyes. The person is looking at the result. The tool is only reporting its own assumptions.</p>
+  <p>There is a nice ending in the log itself. Today the job still often reports zero. But now I trust that zero, because the history shows it can find pairs. It found new ones 26 times since the fix. The zero has proof behind it now.</p>
+
+  <h2>What I changed</h2>
+  <p>Two things.</p>
+  <p><strong>A new rule for my assistant.</strong> Before it tells me a scheduled job is healthy, it has to read the job's history and check whether the result was ever anything other than zero. A flat line of zeros means "go and look," not "all good."</p>
+  <p><strong>A proof gate.</strong> I also built a small check that runs every time my assistant finishes a reply. If the reply says something "works" or "is fixed," the check looks at what the assistant actually did. Did it change something, and then test it after that change? If not, the reply is stopped once, and the assistant has to run the test first. The words are the claim. The actions are the proof.</p>
+  <p>My <a href="agent-verification-checklist.html">Agent Verification Checklist</a> is something I run by hand. The proof gate is the first part of it that runs by itself.</p>
+
+  <h2>About this page</h2>
+  <p>An AI agent wrote the first draft of this page from my notes and the real log. I checked it against my own checklist before publishing.</p>
+  <p>Item 1, I saw the problem myself, is the whole story. The duplicates were on my screen before any code changed.</p>
+  <p>Item 2, proof from a tool and not a summary, applies to every number here. 190, 1,870 and 26 were counted from the job's log file, not remembered.</p>
+
+  <h2>Tell me yours</h2>
+  <p>What is the quietest bug you have ever had, the one that looked like success? <a href="https://www.linkedin.com/in/khanzahir/">Tell me on LinkedIn</a>.</p>
+
+  <p><a href="../index.html">&#8592; Back to zahirkhan.com</a></p>
+</main>
+<footer>&copy; 2026 Zahir Khan &middot; Tokyo</footer>
+</body>
+</html>
